@@ -1,0 +1,26 @@
+/* Carousel.css */
+.carousel {
+    width: 80%; /* Ajuste a largura conforme necessário */
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+}
+
+.carousel-track {
+    display: flex;
+    width: max-content; /* Garante que o track tenha a largura das imagens */
+    animation: scroll 35s linear infinite;
+}
+
+.carousel-track img {
+    width: 28rem; /* Largura de cada imagem */
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 7rem;
+    padding: 10px;
+}
+
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}

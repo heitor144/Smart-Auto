@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+.header {
+    font-family: "Rubik", sans-serif;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px 0px 20px;
+}
+
+.header h2 {
+    margin: 0;
+    text-align: left;
+}
+
+.header p {
+    font-size: 12px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.exit {
+  margin-left: auto;
+  padding-right: 20px; /* Garante espaço no lado direito */
+  display: flex;
+  align-items: center;
+}
+
+.exit:hover {
+  border-radius: 10px;
+  cursor: pointer;
+  background-image: linear-gradient(to right, #ff7f508b, #ff3c767d, #892be290);
+  transition: 0.3s;
+}
+
+.exit a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+
+/* Estilos para telas menores (tablet) */
+@media (max-width: 480px) {
+  
+    .header img {
+      width: 100px; /* Reduz o tamanho do logo */
+    }
+  
+    .header h2 {
+      font-size: 1.2rem; /* Ajusta o tamanho da fonte */
+    }
+  
+    .header p {
+      font-size: 0.6rem; /* Ajusta o tamanho da fonte */
+    }
+  }

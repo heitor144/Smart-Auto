@@ -1,0 +1,35 @@
+.con-prin-func {
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: auto;
+    margin: 20px;
+}
+
+.titulo-pag {
+    width: 18rem;
+    padding: 2px 10px 2px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.059);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to right, #ff7f5034, #ff3c7638, #892be234);
+}
+
+.titulo-pag:hover {
+    background-image: linear-gradient(to right, #ff7f50a8, #ff3c76af, #892be2a9);
+    transition: all 0.3s ease;
+}
+
+.titulo-pag img {
+    width: 70px;
+}
+
+.titulo-pag p {
+    padding-left: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    cursor: default;
+}

@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import { Route, Routes } from 'react-router-dom'
+import LoginPage from './components/LoginPage/LoginPage'
+import MenuPage from './components/MenuPage/MenuPage'
+import Funcionarios from './components/MenuPage/Paginas/Funcionarios/Funcionarios';
+import Clientes from './components/MenuPage/Paginas/Clientes/Clientes';
+import Header from './components/MenuPage/Header/Header';
+import Navbar from './components/MenuPage/Navbar/Navbar';
+import Rodape from './components/LoginPage/Rodape/Rodape';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Navbar />
+      <Routes>
+        <Route path="/funcionarios" element={<Funcionarios />} />
+        {/*<Route path="/clientes" element={<Clientes />} />
+         <Route path="/list" element={<List />} />
+        <Route path="/orders" element={<Orders />} /> */}
+      </Routes>
+      <Rodape />
+      
     </div>
   );
 }
