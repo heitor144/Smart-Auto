@@ -3,18 +3,30 @@
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     width: auto;
+    height: calc(100vh - 250px); /* Altura da tela menos as margens */
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    flex-direction: column;
     margin: 20px;
 }
 
+.sidebar {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(0, 0, 0, 0.075);
+}
+
 .titulo-pag {
-    width: 18rem;
+    margin: 10px;
     padding: 2px 10px 2px 10px;
     border: 1px solid rgba(0, 0, 0, 0.059);
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(to right, #ff7f5034, #ff3c7638, #892be234);
+    background-image: linear-gradient(to bottom, #ff7f5034, #ff3c7638, #892be22b);
 }
 
 .titulo-pag:hover {
@@ -32,4 +44,94 @@
     font-weight: bold;
     letter-spacing: 0.3px;
     cursor: default;
+    margin-bottom: 0;
+}
+
+.add-botao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-botao img,
+.add-botao p {
+    position: relative;
+    z-index: 1;
+}
+
+.add-botao button {
+    font-family: "Rubik", sans-serif;
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: linear-gradient(to right, rgba(129, 255, 182, 0.539) 0%, rgba(71, 212, 163, 0.624) 51%, rgba(65, 226, 50, 0.487) 100%);
+}
+
+.add-botao button:hover {
+    background: linear-gradient(to right, rgb(129, 255, 182) 0%, rgba(71, 212, 163, 0.944) 51%, rgba(65, 226, 50, 0.818) 100%);;
+}
+
+.add-botao img {
+    width: 30px;
+    margin-right: 5px;
+}
+
+.lista-funcionarios {
+    padding: 10px 0;
+}
+
+.input-container {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 10px 40px 10px 15px; /* Espaço extra para o ícone */
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.input-container input:focus {
+    border-color: #888; /* Cor da borda ao focar */
+}
+
+.input-container .input-icon {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Alinha o ícone à direita dentro do input */
+    transform: translateY(-50%);
+    width: 20px; /* Tamanho do ícone */
+    height: auto;
+    opacity: 0.6; /* Ícone levemente translúcido */
+    pointer-events: none; /* Para o ícone não interferir na interação do input */
+}
+
+.input-container input:focus + .input-icon {
+    opacity: 1; /* Torna o ícone totalmente opaco ao focar */
+}
+
+.botoes-acao {
+    display: flex;
+    justify-content: start;
+    
+}
+
+.botoes-acao img {
+    width: 2rem;
+    margin-left: 10px;
 }

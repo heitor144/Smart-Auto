@@ -13,7 +13,7 @@
 }
 
 .navbar {
-    background-color: #fff;
+    background-color: #c1c1c117;
     border-radius: 25px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -55,6 +55,14 @@
     left: 0;
     bottom: -4px;
     transition: 0.3s;
+    
+    text-decoration: none;
+}
+
+.navbar-item:link,
+.navbar-item:visited {
+    text-decoration: none; /* Remove o sublinhado nos estados link e visited */
+    color: #000; /* Garante que a cor do texto não mude para azul */
 }
 
 .navbar-item:hover p:after {
@@ -69,4 +77,5 @@
 .navbar-item p {
     font-size: 20px;
     margin-left: 4px;
+    margin-bottom: 0;
 }
