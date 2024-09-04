@@ -1,9 +1,9 @@
-.con-prin-func {
+.con-prin-fluxo {
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    width: auto;
     height: calc(100vh - 270px); /* Altura da tela menos as margens */
+    width: auto;
     min-height: 0;
     display: grid;
     grid-template-columns: 1fr 4fr;
@@ -40,7 +40,7 @@
 
 .titulo-pag p {
     padding-left: 10px;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
     letter-spacing: 0.3px;
     cursor: default;
@@ -84,7 +84,7 @@
     margin-right: 5px;
 }
 
-.lista-funcionarios {
+.lista-fluxo {
     padding: 10px 0;
 }
 

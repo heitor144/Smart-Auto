@@ -1,4 +1,4 @@
-.con-prin-func {
+.con-prin-serv {
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -40,7 +40,7 @@
 
 .titulo-pag p {
     padding-left: 10px;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
     letter-spacing: 0.3px;
     cursor: default;
@@ -84,18 +84,12 @@
     margin-right: 5px;
 }
 
-.lista-funcionarios {
-    padding: 10px 0;
-}
-
-.input-container {
+.input-container-serv {
     position: relative;
-    width: 100%;
-    max-width: 300px;
-    margin: 20px;
+    margin: 10px;
 }
 
-.input-container input {
+.input-container-serv input {
     width: 100%;
     padding: 10px 40px 10px 15px; /* Espaço extra para o ícone */
     border: 1px solid #ccc;
@@ -105,11 +99,11 @@
     transition: border-color 0.3s ease;
 }
 
-.input-container input:focus {
+.input-container-serv input:focus {
     border-color: #888; /* Cor da borda ao focar */
 }
 
-.input-container .input-icon {
+.input-container-serv .input-icon {
     display: flex;
     position: absolute;
     top: 50%;
@@ -121,23 +115,14 @@
     pointer-events: none; /* Para o ícone não interferir na interação do input */
 }
 
-.input-container input:focus + .input-icon {
+.input-container-serv input:focus + .input-icon {
     opacity: 1; /* Torna o ícone totalmente opaco ao focar */
 }
 
-.botoes-acao {
-    display: flex;
-    justify-content: start;
-    
-}
-
-.botoes-acao img {
-    width: 2rem;
-    margin-left: 10px;
-}
-
-.botoes-acao img:hover {
-    background-color: rgba(0, 0, 0, 0.144);
-    cursor: pointer;
-    border-radius: 7px;
+.lista-servicos {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Ajuste conforme a quantidade de colunas desejada */
+    grid-gap: 10px; /* Espaçamento entre os cards */
+    overflow-y: auto; /* Adiciona a barra de rolagem vertical */
+    max-height: 100%; /* Garante que o container não ultrapasse a altura disponível */
 }

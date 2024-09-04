@@ -1,0 +1,85 @@
+.card-servico {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas */
+    grid-template-rows: auto 1fr auto; /* Linhas automáticas e uma linha principal */
+    grid-gap: 10px; /* Espaçamento entre os itens */
+    height: auto; /* Deixe a altura automática para ajuste conforme o conteúdo */
+}
+
+.card-servico:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card-servico .info-esquerda {
+    grid-column: 1 / 2; /* Coluna 1 */
+    grid-row: 1 / 4; /* Ocupa as três linhas */
+}
+
+.card-servico .info-direita {
+    grid-row: 2;
+    grid-column: 2;
+    text-align: center;
+    align-self: center;
+}
+
+.info-direita img {
+    width: 160px;
+    cursor: zoom-in;
+    border-radius: 15px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.616);
+    
+}
+
+
+.card-servico .status-direita {
+    grid-row: 1 / 2; /* Primeira linha */
+    text-align: right;
+}
+
+.card-servico .botoes-acao {
+    grid-column: 2 / 3; /* Coluna 2 */
+    grid-row: 3 / 4; /* Terceira linha */
+    display: flex;
+    justify-content: flex-end; /* Alinha os botões à direita */
+}
+
+.card-servico p {
+    margin: 3px 0;
+    font-size: 14px;
+}
+
+.card-servico p strong {
+    color: #333;
+}
+
+.botoes-acao img {
+    width: 1.5rem;
+    margin-left: 8px; /* Espaçamento entre os ícones */
+}
+
+.botoes-acao img:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.status-nao-iniciado {
+    background-color: #d4d4d4;
+    border-left: 5px solid #e6e6e6;
+}
+
+.status-em-andamento {
+    background-color: #fff3cd;
+    border-left: 5px solid #ffeeba;
+}
+
+.status-pronto {
+    background-color: #d4edda;
+    border-left: 5px solid #c3e6cb;
+}
