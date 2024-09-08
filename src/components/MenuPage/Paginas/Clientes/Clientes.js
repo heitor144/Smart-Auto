@@ -1,16 +1,24 @@
-import React from 'react'
-import './Clientes.css'
-import Cliente from '../../../../imgs/tela_menu/clientes-icon.svg'
-import Plus from '../../../../imgs/tela_menu/add-icon.svg'
-import Lupa from '../../../../imgs/tela_menu/pesquisa-icon.svg'
-import Editar from '../../../../imgs/tela_menu/editar-icon.svg'
-import Lixeira from '../../../../imgs/tela_menu/lixeira-icon.svg'
+import React, { useContext,useState } from 'react';
+import './Clientes.css';
+import NovoCliente from './AddCliente/NovoCliente';
+import Cliente from '../../../../imgs/tela_menu/clientes-icon.svg';
+import Plus from '../../../../imgs/tela_menu/add-icon.svg';
+import Lupa from '../../../../imgs/tela_menu/pesquisa-icon.svg';
+import Editar from '../../../../imgs/tela_menu/editar-icon.svg';
+import Lixeira from '../../../../imgs/tela_menu/lixeira-icon.svg';
+import { ClientesContext } from './ClientesContext';
 
 const Clientes = () => {
-    // useEffect(() => {
-    //     const button = document.querySelector('.add-botao button');
-    //     button.classList.add('aparecer');
-    // }, []);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { clientes, setClientes } = useContext(ClientesContext); // Pega os dados do contexto
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true)};
+    const handleCloseModal = () => setIsModalOpen(false);
+
+    const handleAddCliente = (novoCliente) => {
+        setClientes([...clientes, { ...novoCliente, id: clientes.length + 1 }]); // Atualiza o contexto
+    };
 
     return (
         <div className='con-prin-clientes'>
@@ -20,7 +28,7 @@ const Clientes = () => {
                     <p>Clientes</p>
                 </div>
                 <div className='add-botao'>
-                    <button>
+                    <button onClick={handleOpenModal}>
                         <img src={Plus} alt='plus-icon'></img>
                         Adicionar novo
                     </button>
@@ -32,7 +40,7 @@ const Clientes = () => {
                     <img src={Lupa} alt='Pesquisar' className="input-icon" />
                 </div>
 
-                <table class="table table-hover">
+                <table className="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -43,47 +51,29 @@ const Clientes = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark Otto</td>
-                            <td>xxxxxxxxxx</td>
-                            <td>999999999-99</td>
-                            <td>
-                                <div className='botoes-acao'>
-                                    <img src={Editar} alt='teste' />
-                                    <img src={Lixeira} alt='teste' />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>yyyyyyyyyy</td>
-                            <td>999999999-99</td>
-                            <td>
-                                <div className='botoes-acao'>
-                                    <img src={Editar} alt='teste' />
-                                    <img src={Lixeira} alt='teste' />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry the bird</td>
-                            <td>zzzzzzzzzz</td>
-                            <td>999999999-99</td>
-                            <td><div className='botoes-acao'>
-                                <img src={Editar} alt='teste' />
-                                <img src={Lixeira} alt='teste' />
-                            </div></td>
-
-                        </tr>
+                        {clientes.map((cliente) => (
+                            <tr key={cliente.id}>
+                                <th scope="row">{cliente.id}</th>
+                                <td>{cliente.nome}</td>
+                                <td>{cliente.telefone}</td>
+                                <td>{cliente.cpf}</td>
+                                <td>
+                                    <div className='botoes-acao'>
+                                        <img src={Editar} alt='teste' />
+                                        <img src={Lixeira} alt='teste' />
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
 
             </div>
+            {isModalOpen && (
+                <NovoCliente onClose={handleCloseModal} onAddCliente={handleAddCliente} />
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default Clientes
+export default Clientes;

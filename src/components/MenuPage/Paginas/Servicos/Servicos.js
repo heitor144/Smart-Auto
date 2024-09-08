@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Servicos.css";
 import Servicos_icon from "../../../../imgs/tela_menu/servicos-icon.svg";
 import Plus from "../../../../imgs/tela_menu/add-icon.svg";
 import Lupa from "../../../../imgs/tela_menu/pesquisa-icon.svg";
 import Servico from "../Servicos/Servico/Servico"; // Importa o componente Servico
+import NovoServico from "./AddServico/NovoServico"; // Importe o componente do modal
 
 const servicosFicticios = [
   {
@@ -100,6 +101,17 @@ const servicosFicticios = [
 ];
 
 const Servicos = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [servicos, setServicos] = useState(servicosFicticios);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+
+  const handleAddServico = (novoServico) => {
+    setServicos([...servicos, { ...novoServico, id: servicos.length + 1 }]);
+    handleCloseModal();
+  };
+
   return (
     <div className="con-prin-serv">
       <div className="sidebar">
@@ -108,7 +120,7 @@ const Servicos = () => {
           <p>Serviços</p>
         </div>
         <div className="add-botao">
-          <button>
+          <button onClick={handleOpenModal}>
             <img src={Plus} alt="plus-icon" />
             Adicionar novo
           </button>
@@ -119,10 +131,11 @@ const Servicos = () => {
         </div>
       </div>
       <div className="lista-servicos">
-        {servicosFicticios.map((servico) => (
+        {servicos.map((servico) => (
           <Servico key={servico.id} servico={servico} />
         ))}
       </div>
+      {isModalOpen && <NovoServico onClose={handleCloseModal} onAddServico={handleAddServico} />}
     </div>
   );
 };

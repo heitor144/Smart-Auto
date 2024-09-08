@@ -1,17 +1,27 @@
-import React from 'react'
-import './Funcionarios.css'
-import Funcionario from '../../../../imgs/tela_menu/funcionarios-icon.svg'
-import Plus from '../../../../imgs/tela_menu/add-icon.svg'
-import Lupa from '../../../../imgs/tela_menu/pesquisa-icon.svg'
-import Detalhes from '../../../../imgs/tela_menu/detalhes-icon.svg'
-import Editar from '../../../../imgs/tela_menu/editar-icon.svg'
-import Lixeira from '../../../../imgs/tela_menu/lixeira-icon.svg'
+import React, { useState } from 'react';
+import './Funcionarios.css';
+import NovoFuncionario from './AddFuncionario/NovoFuncionario';
+import Funcionario from '../../../../imgs/tela_menu/funcionarios-icon.svg';
+import Plus from '../../../../imgs/tela_menu/add-icon.svg';
+import Lupa from '../../../../imgs/tela_menu/pesquisa-icon.svg';
+import Detalhes from '../../../../imgs/tela_menu/detalhes-icon.svg';
+import Editar from '../../../../imgs/tela_menu/editar-icon.svg';
+import Lixeira from '../../../../imgs/tela_menu/lixeira-icon.svg';
 
 const Funcionarios = () => {
-    // useEffect(() => {
-    //     const button = document.querySelector('.add-botao button');
-    //     button.classList.add('aparecer');
-    // }, []);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [funcionarios, setFuncionarios] = useState([
+        { id: 1, nome: 'Mark Otto', matricula: 'xxxxxxxxxx', cpf: '999999999-99', nascimento: '11-11-1111', cargo: 'Pintor' },
+        { id: 2, nome: 'Jacob', matricula: 'yyyyyyyyyy', cpf: '999999999-99', nascimento: '11-11-1111', cargo: 'Funileiro' },
+        { id: 3, nome: 'Larry the bird', matricula: 'zzzzzzzzzz', cpf: '999999999-99', nascimento: '11-11-1111', cargo: 'Supervisor' }
+    ]);
+
+    const handleOpenModal = () => setIsModalOpen(true);
+    const handleCloseModal = () => setIsModalOpen(false);
+
+    const handleAddFuncionario = (novoFuncionario) => {
+        setFuncionarios([...funcionarios, { ...novoFuncionario, id: funcionarios.length + 1 }]);
+    };
 
     return (
         <div className='con-prin-func'>
@@ -21,7 +31,7 @@ const Funcionarios = () => {
                     <p>Funcionários</p>
                 </div>
                 <div className='add-botao'>
-                    <button>
+                    <button onClick={handleOpenModal}>
                         <img src={Plus} alt='plus-icon'></img>
                         Adicionar novo
                     </button>
@@ -33,7 +43,7 @@ const Funcionarios = () => {
                     <img src={Lupa} alt='Pesquisar' className="input-icon" />
                 </div>
 
-                <table class="table table-hover">
+                <table className="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -46,56 +56,32 @@ const Funcionarios = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark Otto</td>
-                            <td>xxxxxxxxxx</td>
-                            <td>999999999-99</td>
-                            <td>11-11-1111</td>
-                            <td>Pintor</td>
-                            <td>
-                                <div className='botoes-acao'>
-                                    <img src={Detalhes} alt='teste' />
-                                    <img src={Editar} alt='teste' />
-                                    <img src={Lixeira} alt='teste' />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>yyyyyyyyyy</td>
-                            <td>999999999-99</td>
-                            <td>11-11-1111</td>
-                            <td>Funileiro</td>
-                            <td>
-                                <div className='botoes-acao'>
-                                    <img src={Detalhes} alt='teste' />
-                                    <img src={Editar} alt='teste' />
-                                    <img src={Lixeira} alt='teste' />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry the bird</td>
-                            <td>zzzzzzzzzz</td>
-                            <td>999999999-99</td>
-                            <td>11-11-1111</td>
-                            <td>Supervisor</td>
-                            <td><div className='botoes-acao'>
-                                <img src={Detalhes} alt='teste' />
-                                <img src={Editar} alt='teste' />
-                                <img src={Lixeira} alt='teste' />
-                            </div></td>
-
-                        </tr>
+                        {funcionarios.map((funcionario) => (
+                            <tr key={funcionario.id}>
+                                <th scope="row">{funcionario.id}</th>
+                                <td>{funcionario.nome}</td>
+                                <td>{funcionario.matricula}</td>
+                                <td>{funcionario.cpf}</td>
+                                <td>{funcionario.nascimento}</td>
+                                <td>{funcionario.cargo}</td>
+                                <td>
+                                    <div className='botoes-acao'>
+                                        <img src={Detalhes} alt='teste' />
+                                        <img src={Editar} alt='teste' />
+                                        <img src={Lixeira} alt='teste' />
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
 
             </div>
+            {isModalOpen && (
+                <NovoFuncionario onClose={handleCloseModal} onAddFuncionario={handleAddFuncionario} />
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default Funcionarios
+export default Funcionarios;
