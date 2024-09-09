@@ -1,17 +1,27 @@
-import React from 'react'
-import './FluxoCaixa.css'
-import FluxoCaixa_icon from '../../../../imgs/tela_menu/fluxo-caixa-icon.svg'
-import Plus from '../../../../imgs/tela_menu/add-icon.svg'
-import Lupa from '../../../../imgs/tela_menu/pesquisa-icon.svg'
-import Detalhes from '../../../../imgs/tela_menu/detalhes-icon.svg'
-import Editar from '../../../../imgs/tela_menu/editar-icon.svg'
-import Lixeira from '../../../../imgs/tela_menu/lixeira-icon.svg'
+import React, { useState } from 'react';
+import './FluxoCaixa.css';
+import FluxoCaixa_icon from '../../../../imgs/tela_menu/fluxo-caixa-icon.svg';
+import Plus from '../../../../imgs/tela_menu/add-icon.svg';
+import Lupa from '../../../../imgs/tela_menu/pesquisa-icon.svg';
+import Detalhes from '../../../../imgs/tela_menu/detalhes-icon.svg';
+import Editar from '../../../../imgs/tela_menu/editar-icon.svg';
+import Lixeira from '../../../../imgs/tela_menu/lixeira-icon.svg';
+import NovoFluxo from './AddFluxoCaixa/NovoFluxo'; // Novo componente de modal
 
 const FluxoCaixa = () => {
-    // useEffect(() => {
-    //     const button = document.querySelector('.add-botao button');
-    //     button.classList.add('aparecer');
-    // }, []);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [registros, setRegistros] = useState([
+        { id: 1, data: 'xx-xx-xxxx', tipo: 'Saída', descricao: 'Compra de materiais', categoria: 'Material', valorBruto: 3000, valorLiquido: 3000 },
+        { id: 2, data: 'xx-xx-xxxx', tipo: 'Saída', descricao: 'Serviço de pintura', categoria: 'Serviço', valorBruto: 1500, valorLiquido: 1350 },
+        { id: 3, data: 'xx-xx-xxxx', tipo: 'Saída', descricao: 'Compra de materiais', categoria: 'Material', valorBruto: 500, valorLiquido: 500 },
+    ]);
+
+    const handleOpenModal = () => setIsModalOpen(true);
+    const handleCloseModal = () => setIsModalOpen(false);
+
+    const handleAddRegistro = (NovoFluxo) => {
+        setRegistros([...registros, { ...NovoFluxo, id: registros.length + 1 }]);
+    };
 
     return (
         <div className='con-prin-fluxo'>
@@ -21,7 +31,7 @@ const FluxoCaixa = () => {
                     <p>Fluxo de Caixa</p>
                 </div>
                 <div className='add-botao'>
-                    <button>
+                    <button onClick={handleOpenModal}>
                         <img src={Plus} alt='plus-icon' />
                         Adicionar novo
                     </button>
@@ -33,7 +43,7 @@ const FluxoCaixa = () => {
                     <img src={Lupa} alt='Pesquisar' className="input-icon" />
                 </div>
 
-                <table class="table table-hover">
+                <table className="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -47,59 +57,32 @@ const FluxoCaixa = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>xx-xx-xxxx</td>
-                            <td>Saída</td>
-                            <td>Compra de materiais</td>
-                            <td>Salário</td>
-                            <td>R$3.000,00</td>
-                            <td>R$3.000,00</td>
-                            <td>
-                                <div className='botoes-acao'>
-                                    <img src={Detalhes} alt='teste' />
-                                    <img src={Editar} alt='teste' />
-                                    <img src={Lixeira} alt='teste' />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>xx-xx-xxxx</td>
-                            <td>Saída</td>
-                            <td>Serviço de pintura</td>
-                            <td>Serviço</td>
-                            <td>R$1.500,00</td>
-                            <td>R$1.350,00</td>
-                            <td>
-                                <div className='botoes-acao'>
-                                    <img src={Detalhes} alt='teste' />
-                                    <img src={Editar} alt='teste' />
-                                    <img src={Lixeira} alt='teste' />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>xx-xx-xxxx</td>
-                            <td>Saída</td>
-                            <td>Compra de materiais</td>
-                            <td>Material</td>
-                            <td>R$500,00</td>
-                            <td>R$500,00</td>
-                            <td><div className='botoes-acao'>
-                                <img src={Detalhes} alt='teste' />
-                                <img src={Editar} alt='teste' />
-                                <img src={Lixeira} alt='teste' />
-                            </div></td>
-
-                        </tr>
+                        {registros.map((registro) => (
+                            <tr key={registro.id}>
+                                <th scope="row">{registro.id}</th>
+                                <td>{registro.data}</td>
+                                <td>{registro.tipo}</td>
+                                <td>{registro.descricao}</td>
+                                <td>{registro.categoria}</td>
+                                <td>R${registro.valorBruto}</td>
+                                <td>R${registro.valorLiquido}</td>
+                                <td>
+                                    <div className='botoes-acao'>
+                                        <img src={Detalhes} alt='detalhes' />
+                                        <img src={Editar} alt='editar' />
+                                        <img src={Lixeira} alt='excluir' />
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
-
             </div>
+            {isModalOpen && (
+                <NovoFluxo onClose={handleCloseModal} onAddRegistro={handleAddRegistro} />
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default FluxoCaixa
+export default FluxoCaixa;
