@@ -7,85 +7,14 @@
     min-height: 0;
     display: grid;
     grid-template-columns: 1fr 4fr;
-    flex-direction: column;
     margin: 20px;
-}
-
-.sidebar {
-    width: 20rem;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid rgba(0, 0, 0, 0.075);
-}
-
-.titulo-pag {
-    margin: 10px;
-    padding: 2px 10px 2px 10px;
-    border: 1px solid rgba(0, 0, 0, 0.059);
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: linear-gradient(to bottom, #ff7f5034, #ff3c7638, #892be22b);
-}
-
-.titulo-pag:hover {
-    background-image: linear-gradient(to right, #ff7f50a8, #ff3c76af, #892be2a9);
-    transition: all 0.3s ease;
-}
-
-.titulo-pag img {
-    width: 70px;
-}
-
-.titulo-pag p {
-    padding-left: 10px;
-    font-size: 30px;
-    font-weight: bold;
-    letter-spacing: 0.3px;
-    cursor: default;
-    margin-bottom: 0;
-}
-
-.add-botao {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    position: relative;
-    overflow: hidden;
-}
-
-.add-botao img,
-.add-botao p {
-    position: relative;
-    z-index: 1;
-}
-
-.add-botao button {
-    font-family: "Rubik", sans-serif;
-    font-size: 20px;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    background: linear-gradient(to right, rgba(129, 255, 182, 0.539) 0%, rgba(71, 212, 163, 0.624) 51%, rgba(65, 226, 50, 0.487) 100%);
-}
-
-.add-botao button:hover {
-    background: linear-gradient(to right, rgb(129, 255, 182) 0%, rgba(71, 212, 163, 0.944) 51%, rgba(65, 226, 50, 0.818) 100%);;
-}
-
-.add-botao img {
-    width: 30px;
-    margin-right: 5px;
+    overflow: hidden; /* Para garantir que o conteúdo extra da lista não afete a altura do contêiner */
 }
 
 .lista-clientes {
     padding: 10px 0;
+    overflow-y: auto; /* Adiciona a barra de rolagem vertical */
+    max-height: 100%; /* Garante que o container não ultrapasse a altura disponível */
 }
 
 .input-container {
@@ -97,7 +26,7 @@
 
 .input-container input {
     width: 100%;
-    padding: 10px 40px 10px 15px; /* Espaço extra para o ícone */
+    padding: 10px 40px 10px 15px;
     border: 1px solid #ccc;
     border-radius: 25px;
     font-size: 16px;
@@ -106,29 +35,28 @@
 }
 
 .input-container input:focus {
-    border-color: #888; /* Cor da borda ao focar */
+    border-color: #888;
 }
 
 .input-container .input-icon {
     display: flex;
     position: absolute;
     top: 50%;
-    right: 10px; /* Alinha o ícone à direita dentro do input */
+    right: 10px;
     transform: translateY(-50%);
-    width: 20px; /* Tamanho do ícone */
+    width: 20px;
     height: auto;
-    opacity: 0.6; /* Ícone levemente translúcido */
-    pointer-events: none; /* Para o ícone não interferir na interação do input */
+    opacity: 0.6;
+    pointer-events: none;
 }
 
 .input-container input:focus + .input-icon {
-    opacity: 1; /* Torna o ícone totalmente opaco ao focar */
+    opacity: 1;
 }
 
 .botoes-acao {
     display: flex;
     justify-content: start;
-    
 }
 
 .botoes-acao img {

@@ -86,6 +86,8 @@
 
 .lista-fluxo {
     padding: 10px 0;
+    overflow-y: auto; /* Adiciona a barra de rolagem vertical */
+    max-height: 100%; /* Garante que o container não ultrapasse a altura disponível */
 }
 
 .input-container {

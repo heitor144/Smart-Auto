@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // Importando o Axios
 import './Funcionarios.css';
 import NovoFuncionario from './AddFuncionario/NovoFuncionario';
 import Funcionario from '../../../../imgs/tela_menu/funcionarios-icon.svg';
@@ -8,13 +9,31 @@ import Detalhes from '../../../../imgs/tela_menu/detalhes-icon.svg';
 import Editar from '../../../../imgs/tela_menu/editar-icon.svg';
 import Lixeira from '../../../../imgs/tela_menu/lixeira-icon.svg';
 
+
 const Funcionarios = () => {
+    const [funcionarios, setFuncionarios] = useState([]); // Estado local para armazenar os funcionários
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [funcionarios, setFuncionarios] = useState([
-        { id: 1, nome: 'Mark Otto', matricula: 'xxxxxxxxxx', cpf: '999999999-99', nascimento: '11-11-1111', cargo: 'Pintor' },
-        { id: 2, nome: 'Jacob', matricula: 'yyyyyyyyyy', cpf: '999999999-99', nascimento: '11-11-1111', cargo: 'Funileiro' },
-        { id: 3, nome: 'Larry the bird', matricula: 'zzzzzzzzzz', cpf: '999999999-99', nascimento: '11-11-1111', cargo: 'Supervisor' }
-    ]);
+    
+    // Adiciona um estado de carregamento e erro
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        // Função para buscar os dados da API
+        const fetchFuncionarios = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/api/funcionarios/funcionarios'); // Usando Axios para fazer a requisição
+                setFuncionarios(response.data); // Atualiza o estado com os funcionários vindos da API
+                console.log(response.data);
+                setLoading(false); // Atualiza o estado de carregamento
+            } catch (error) {
+                setError(error.message);
+                setLoading(false); // Atualiza o estado de carregamento em caso de erro
+            }
+        };
+
+        fetchFuncionarios(); // Chama a função quando o componente monta
+    }, []);
 
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
@@ -22,6 +41,25 @@ const Funcionarios = () => {
     const handleAddFuncionario = (novoFuncionario) => {
         setFuncionarios([...funcionarios, { ...novoFuncionario, id: funcionarios.length + 1 }]);
     };
+
+    function formatarCPF(cpf) {
+        if (cpf) {
+            return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        }
+        return cpf;
+    }
+    
+    function formatarData(data) {
+        if (!data) return '';
+    
+        const dateObj = new Date(data); // Cria um objeto Date a partir do valor recebido
+        const dia = String(dateObj.getDate()).padStart(2, '0'); // Obtém o dia e garante 2 dígitos
+        const mes = String(dateObj.getMonth() + 1).padStart(2, '0'); // Obtém o mês (adiciona +1 porque o mês começa em 0)
+        const ano = dateObj.getFullYear(); // Obtém o ano
+    
+        return `${dia}/${mes}/${ano}`; // Retorna no formato dd/MM/yyyy
+    }
+    
 
     return (
         <div className='con-prin-func'>
@@ -48,22 +86,22 @@ const Funcionarios = () => {
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nome Completo</th>
-                            <th scope="col">Matrícula</th>
                             <th scope="col">CPF</th>
                             <th scope="col">Nascimento</th>
                             <th scope="col">Cargo</th>
+                            <th scope="col">Salário</th>
                             <th scope="col">Ação</th>
                         </tr>
                     </thead>
                     <tbody>
                         {funcionarios.map((funcionario) => (
                             <tr key={funcionario.id}>
-                                <th scope="row">{funcionario.id}</th>
-                                <td>{funcionario.nome}</td>
-                                <td>{funcionario.matricula}</td>
-                                <td>{funcionario.cpf}</td>
-                                <td>{funcionario.nascimento}</td>
-                                <td>{funcionario.cargo}</td>
+                                <th scope="row">{funcionario[0]}</th>
+                                <td>{funcionario[1]}</td>
+                                <td>{formatarCPF(funcionario[2])}</td>
+                                <td>{formatarData(funcionario[3])}</td>
+                                <td>{funcionario[4]}</td>
+                                <td>R${funcionario[5].toFixed(2)}</td>
                                 <td>
                                     <div className='botoes-acao'>
                                         <img src={Detalhes} alt='teste' />

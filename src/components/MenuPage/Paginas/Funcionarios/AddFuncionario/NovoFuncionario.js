@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./NovoFuncionario.css";
+import axios from "axios"; // Importar axios para fazer a requisição
 import Funcionario from "../../../../../imgs/tela_menu/funcionarios-icon.svg";
 
 const NovoFuncionario = ({ onClose, onAddFuncionario }) => {
@@ -8,27 +9,39 @@ const NovoFuncionario = ({ onClose, onAddFuncionario }) => {
   const [nascimento, setNascimento] = useState("");
   const [cargo, setCargo] = useState("");
   const [salario, setSalario] = useState("");
-  const [matricula, setMatricula] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const novoFuncionario = {
       nome,
       cpf,
       nascimento,
       cargo,
       salario,
-      matricula,
     };
-    onAddFuncionario(novoFuncionario); // Função para enviar o registro
-    onClose(); // Fecha o modal após o envio
+
+    try {
+      // Faz a requisição POST para a API
+      const response = await axios.post("http://localhost:3001/api/funcionarios", novoFuncionario);
+      
+      if (response.status === 201) {
+        console.log("Funcionário adicionado com sucesso", response.data);
+        onAddFuncionario(response.data); // Atualiza a lista de funcionários com o novo registro
+        onClose(); // Fecha o modal após a inserção
+      } else {
+        console.error("Erro ao adicionar funcionário", response.status);
+      }
+    } catch (error) {
+      console.error("Erro ao fazer a requisição", error);
+    }
   };
 
   return (
     <div className="modal-background">
       <div className="modal-content">
         <header>
-          <img src={Funcionario} />
+          <img src={Funcionario} alt="Funcionario" />
           <h2>Novo Funcionário</h2>
         </header>
         <form onSubmit={handleSubmit}>
@@ -81,19 +94,6 @@ const NovoFuncionario = ({ onClose, onAddFuncionario }) => {
             placeholder="Digite o salário..."
             required
           />
-
-          {/* <label>PIS/COFINS:</label>
-          <input type="number" value={pis} onChange={(e) => setPis(e.target.value)} placeholder='Digite o PIS...' required /> */}
-
-          <label>Matrícula:</label>
-          <input
-            type="text"
-            value={matricula}
-            onChange={(e) => setMatricula(e.target.value)}
-            readonly
-            required
-          />
-
           <div className="botao-adicionar">
             <button type="submit">Adicionar</button>
           </div>
