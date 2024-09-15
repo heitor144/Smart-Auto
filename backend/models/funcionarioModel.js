@@ -40,7 +40,7 @@ async function getFuncionarios() {
     }
 }
 
-async function novoFuncionario(id_funcionario, nome, cpf, salario, data_nascimento, id_cargo) {
+async function novoFuncionario(nome, cpf, salario, data_nascimento, id_cargo) {
     let connection;
 
     try {
@@ -48,13 +48,12 @@ async function novoFuncionario(id_funcionario, nome, cpf, salario, data_nascimen
 
         // Comando SQL de INSERT com parâmetros bind para evitar SQL Injection
         const sql = `
-            INSERT INTO Funcionario (id_funcionario, nome, cpf, salario, data_nascimento, id_cargo) 
-            VALUES (:id_funcionario, :nome, :cpf, :salario, TO_DATE(:data_nascimento, 'YYYY-MM-DD'), :id_cargo)
+            INSERT INTO Funcionario (nome, cpf, salario, data_nascimento, id_cargo) 
+            VALUES (:nome, :cpf, TO_NUMBER(:salario), TO_DATE(:data_nascimento, 'YYYY-MM-DD'), :id_cargo)
         `;
 
         // Executa a inserção com os valores fornecidos
         await connection.execute(sql, {
-            id_funcionario: id_funcionario,
             nome: nome,
             cpf: cpf,
             salario: salario,
@@ -77,4 +76,89 @@ async function novoFuncionario(id_funcionario, nome, cpf, salario, data_nascimen
     }
 }
 
-module.exports = { getFuncionarios, novoFuncionario };
+async function updateFuncionario(id_funcionario, nome, cpf, salario, data_nascimento, id_cargo) {
+    let connection;
+
+    try {
+        connection = await oracledb.getConnection();
+
+        // Comando SQL de UPDATE com parâmetros bind para evitar SQL Injection
+        const sql = `
+            UPDATE Funcionario 
+            SET 
+                nome = :nome, 
+                cpf = :cpf, 
+                salario = TO_NUMBER(:salario), 
+                data_nascimento = TO_DATE(:data_nascimento, 'YYYY-MM-DD'), 
+                id_cargo = :id_cargo
+            WHERE 
+                id_funcionario = :id_funcionario
+        `;
+
+        // Executa a atualização com os valores fornecidos
+        const result = await connection.execute(sql, {
+            id_funcionario: id_funcionario, // ID do funcionário a ser atualizado
+            nome: nome,
+            cpf: cpf,
+            salario: salario,
+            data_nascimento: data_nascimento, // Certifique-se de que o valor está no formato 'YYYY-MM-DD'
+            id_cargo: id_cargo
+        }, { autoCommit: true }); // autoCommit para garantir que a atualização seja confirmada no banco de dados
+
+        if (result.rowsAffected === 0) {
+            console.log(id_funcionario)
+            console.log('Nenhum funcionário foi atualizado. Verifique o ID.');
+        } else {
+            console.log('Funcionário atualizado com sucesso!');
+        }
+    } catch (err) {
+        console.error('Erro ao atualizar funcionário:', err);
+        throw err; // Repassa o erro para ser tratado externamente
+    } finally {
+        if (connection) {
+            try {
+                await connection.close(); // Fecha a conexão de forma segura
+            } catch (err) {
+                console.error('Erro ao fechar a conexão:', err);
+            }
+        }
+    }
+}
+
+async function excluirFuncionario(id_funcionario) {
+    let connection;
+
+    try {
+        connection = await oracledb.getConnection();
+
+        // Comando SQL de DELETE com parâmetro bind para evitar SQL Injection
+        const sql = `
+            DELETE FROM Funcionario 
+            WHERE id_funcionario = :id_funcionario
+        `;
+
+        // Executa a exclusão com o ID fornecido
+        const result = await connection.execute(sql, {
+            id_funcionario: id_funcionario
+        }, { autoCommit: true }); // autoCommit para garantir que a exclusão seja confirmada no banco de dados
+
+        if (result.rowsAffected === 0) {
+            console.log('Nenhum funcionário foi excluído. Verifique o ID.');
+        } else {
+            console.log('Funcionário excluído com sucesso!');
+        }
+    } catch (err) {
+        console.error('Erro ao excluir funcionário:', err);
+        throw err; // Repassa o erro para ser tratado externamente
+    } finally {
+        if (connection) {
+            try {
+                await connection.close(); // Fecha a conexão de forma segura
+            } catch (err) {
+                console.error('Erro ao fechar a conexão:', err);
+            }
+        }
+    }
+}
+
+module.exports = { getFuncionarios, novoFuncionario, updateFuncionario, excluirFuncionario };

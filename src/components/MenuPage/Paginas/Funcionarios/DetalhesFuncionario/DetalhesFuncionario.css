@@ -64,12 +64,6 @@
     border-radius: 5px;
 }
 
-.botao-adicionar {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 20px;
-}
-
 .botao-fechar {
     display: flex;
     justify-content: center;

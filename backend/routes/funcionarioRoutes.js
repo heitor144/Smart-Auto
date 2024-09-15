@@ -6,5 +6,10 @@ const funcionarioController = require('../controllers/funcionarioController');
 router.get('/funcionarios', funcionarioController.listarFuncionarios);
 // Rota para adicionar um novo funcionário
 router.post('/funcionarios', funcionarioController.novoFuncionario);
+// Rota para atualizar um funcionário
+router.put('/funcionarios/atualizar', funcionarioController.atualizarFuncionario);
+// Rota para excluir um funcionário
+router.delete('/funcionarios/:id', funcionarioController.excluirFuncionario);
+
 
 module.exports = router;
