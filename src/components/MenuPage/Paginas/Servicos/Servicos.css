@@ -126,3 +126,15 @@
     overflow-y: auto; /* Adiciona a barra de rolagem vertical */
     max-height: 100%; /* Garante que o container não ultrapasse a altura disponível */
 }
+
+.status-filters {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
+}
+
+.status-filters input {
+    margin-right: 5px;
+    
+}

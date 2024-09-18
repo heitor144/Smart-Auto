@@ -6,10 +6,14 @@
     border: 1px solid #ddd;
     transition: box-shadow 0.3s ease;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Duas colunas */
-    grid-template-rows: auto 1fr auto; /* Linhas automáticas e uma linha principal */
-    grid-gap: 10px; /* Espaçamento entre os itens */
-    height: auto; /* Deixe a altura automática para ajuste conforme o conteúdo */
+    grid-template-columns: 1fr 1fr;
+    /* Duas colunas */
+    grid-template-rows: auto 1fr auto;
+    /* Linhas automáticas e uma linha principal */
+    grid-gap: 10px;
+    /* Espaçamento entre os itens */
+    height: auto;
+    /* Deixe a altura automática para ajuste conforme o conteúdo */
 }
 
 .card-servico:hover {
@@ -17,8 +21,10 @@
 }
 
 .card-servico .info-esquerda {
-    grid-column: 1 / 2; /* Coluna 1 */
-    grid-row: 1 / 4; /* Ocupa as três linhas */
+    grid-column: 1 / 2;
+    /* Coluna 1 */
+    grid-row: 1 / 4;
+    /* Ocupa as três linhas */
 }
 
 .card-servico .info-direita {
@@ -33,20 +39,22 @@
     cursor: zoom-in;
     border-radius: 15px;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.616);
-    
 }
 
-
 .card-servico .status-direita {
-    grid-row: 1 / 2; /* Primeira linha */
+    grid-row: 1 / 2;
+    /* Primeira linha */
     text-align: right;
 }
 
 .card-servico .botoes-acao {
-    grid-column: 2 / 3; /* Coluna 2 */
-    grid-row: 3 / 4; /* Terceira linha */
+    grid-column: 2 / 3;
+    /* Coluna 2 */
+    grid-row: 3 / 4;
+    /* Terceira linha */
     display: flex;
-    justify-content: flex-end; /* Alinha os botões à direita */
+    justify-content: flex-end;
+    /* Alinha os botões à direita */
 }
 
 .card-servico p {
@@ -60,7 +68,8 @@
 
 .botoes-acao img {
     width: 1.5rem;
-    margin-left: 8px; /* Espaçamento entre os ícones */
+    margin-left: 8px;
+    /* Espaçamento entre os ícones */
 }
 
 .botoes-acao img:hover {
@@ -79,7 +88,13 @@
     border-left: 5px solid #ffeeba;
 }
 
-.status-pronto {
-    background-color: #d4edda;
-    border-left: 5px solid #c3e6cb;
+.status-aguardando-retirada {
+    background-color: #d6ff94;
+    border-left: 5px solid #9dcf74;
 }
+
+.status-finalizado {
+    background-color: #00bd196e;
+    border-left: 5px solid #005815;
+}
+

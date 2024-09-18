@@ -9,21 +9,18 @@ import FluxoCaixa from "./components/MenuPage/Paginas/FluxoCaixa/FluxoCaixa";
 import Header from "./components/MenuPage/Header/Header";
 import Navbar from "./components/MenuPage/Navbar/Navbar";
 import Rodape from "./components/LoginPage/Rodape/Rodape";
-import { ClientesProvider } from "./components/MenuPage/Paginas/Clientes/ClientesContext";
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Navbar />
-      <ClientesProvider>
-        <Routes>
-          <Route path="/funcionarios" element={<Funcionarios />} />
-          <Route path="/clientes" element={<Clientes />} />
-          <Route path="/servicos" element={<Servicos />} />
-          <Route path="/fluxocaixa" element={<FluxoCaixa />} />
-        </Routes>
-      </ClientesProvider>
+      <Routes>
+        <Route path="/funcionarios" element={<Funcionarios />} />
+        <Route path="/clientes" element={<Clientes />} />
+        <Route path="/servicos" element={<Servicos />} />
+        <Route path="/fluxocaixa" element={<FluxoCaixa />} />
+      </Routes>
       <Rodape />
     </div>
   );
