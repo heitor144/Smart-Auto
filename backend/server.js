@@ -6,6 +6,10 @@ const servicoRoutes = require('./routes/servicoRoutes');
 const clienteRoutes = require('./routes/clienteRoutes');
 const funcionarioRoutes = require('./routes/funcionarioRoutes');
 const cargoRoutes = require('./routes/cargoRoutes');
+const usuarioRoutes = require('./routes/usuarioRoutes'); // Importando as rotas de usuário
+const fluxoCaixaRoutes = require('./routes/fluxoCaixaRoutes'); // Importando as rotas de usuário
+const categoriaRoutes = require('./routes/categoriaRoutes'); // Importando as rotas de usuário
+
 
 
 const app = express();
@@ -22,6 +26,9 @@ app.use('/api/funcionarios', funcionarioRoutes);
 app.use('/api/servicos', servicoRoutes);
 app.use('/api/clientes', clienteRoutes);
 app.use('/api/cargos', cargoRoutes);
+app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/fluxoCaixa', fluxoCaixaRoutes);
+app.use('/api/categorias', categoriaRoutes);
 
 // Iniciar o servidor e conectar ao banco de dados
 db.initialize().then(() => {

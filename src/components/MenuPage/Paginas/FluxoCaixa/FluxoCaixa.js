@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './FluxoCaixa.css';
 import FluxoCaixa_icon from '../../../../imgs/tela_menu/fluxo-caixa-icon.svg';
 import Plus from '../../../../imgs/tela_menu/add-icon.svg';
@@ -10,11 +11,9 @@ import NovoFluxo from './AddFluxoCaixa/NovoFluxo'; // Novo componente de modal
 
 const FluxoCaixa = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [registros, setRegistros] = useState([
-        { id: 1, data: 'xx-xx-xxxx', tipo: 'Saída', descricao: 'Compra de materiais', categoria: 'Material', valorBruto: 3000, valorLiquido: 3000 },
-        { id: 2, data: 'xx-xx-xxxx', tipo: 'Saída', descricao: 'Serviço de pintura', categoria: 'Serviço', valorBruto: 1500, valorLiquido: 1350 },
-        { id: 3, data: 'xx-xx-xxxx', tipo: 'Saída', descricao: 'Compra de materiais', categoria: 'Material', valorBruto: 500, valorLiquido: 500 },
-    ]);
+    const [registros, setRegistros] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleOpenModal = () => setIsModalOpen(true);
     const handleCloseModal = () => setIsModalOpen(false);
@@ -22,6 +21,33 @@ const FluxoCaixa = () => {
     const handleAddRegistro = (NovoFluxo) => {
         setRegistros([...registros, { ...NovoFluxo, id: registros.length + 1 }]);
     };
+
+    const formatarData = (dataString) => {
+        const data = new Date(dataString);
+        const dia = String(data.getDate()).padStart(2, '0');
+        const mes = String(data.getMonth() + 1).padStart(2, '0');
+        const ano = data.getFullYear();
+    
+        return `${dia}/${mes}/${ano}`;
+    };
+    
+
+    const fetchRegistros = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get('http://localhost:3001/api/fluxoCaixa/fluxoCaixa');
+            setRegistros(response.data.map((item, index) => ({ ...item, id: index + 1 })));
+        } catch (error) {
+            console.error('Erro ao buscar fluxos de caixa:', error);
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchRegistros();
+    }, []);
 
     return (
         <div className='con-prin-fluxo'>
@@ -38,6 +64,8 @@ const FluxoCaixa = () => {
                 </div>
             </div>
             <div className='lista-fluxo'>
+                {loading && <p>Carregando...</p>}
+                {error && <p>Erro: {error}</p>}
                 <div className='input-container'>
                     <input type="text" placeholder="Digite o que busca..." />
                     <img src={Lupa} alt='Pesquisar' className="input-icon" />
@@ -58,14 +86,15 @@ const FluxoCaixa = () => {
                     </thead>
                     <tbody>
                         {registros.map((registro) => (
-                            <tr key={registro.id}>
-                                <th scope="row">{registro.id}</th>
-                                <td>{registro.data}</td>
-                                <td>{registro.tipo}</td>
-                                <td>{registro.descricao}</td>
-                                <td>{registro.categoria}</td>
-                                <td>R${registro.valorBruto}</td>
-                                <td>R${registro.valorLiquido}</td>
+                            <tr key={registro[0]}>
+                                <th scope="row">{registro[0]}</th>
+                                <td>{formatarData(registro[6])}</td>
+
+                                <td>{registro[3]}</td>
+                                <td>{registro[2]}</td>
+                                <td>{registro[1]}</td>
+                                <td>R${registro[4]}</td>
+                                <td>R${registro[5]}</td>
                                 <td>
                                     <div className='botoes-acao'>
                                         <img src={Detalhes} alt='detalhes' />

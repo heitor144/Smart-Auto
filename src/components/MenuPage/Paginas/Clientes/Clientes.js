@@ -98,7 +98,7 @@ const Clientes = () => {
       return telefone
         .replace(/\D/g, "")
         .replace(/^(\d{2})(\d)/, "($1) $2")
-        .replace(/(\d{4})(\d)/, "$1-$2");
+        .replace(/(\d{5})(\d)/, "$1-$2");
     }
     return telefone;
   }
@@ -147,8 +147,8 @@ const Clientes = () => {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Nome Completo</th>
-              <th scope="col">Telefone</th>
               <th scope="col">CPF</th>
+              <th scope="col">Telefone</th>
               <th scope="col">Ação</th>
             </tr>
           </thead>
@@ -157,8 +157,8 @@ const Clientes = () => {
               <tr key={cliente[0]}>
                 <th scope="row">{cliente[0]}</th>
                 <td>{cliente[1]}</td>
-                <td>{formatarTelefone(cliente[2])}</td>
                 <td>{formatarCPF(cliente[3])}</td>
+                <td>{formatarTelefone(cliente[2])}</td>
                 <td>
                   <div className="botoes-acao">
                     <img

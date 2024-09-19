@@ -46,7 +46,6 @@ const Funcionarios = () => {
 
   const handleAddFuncionario = async (novoFuncionario) => {
     try {
-      await axios.post("http://localhost:3001/api/funcionarios/funcionarios", novoFuncionario);
       await fetchFuncionarios();
       handleCloseModal();
     } catch (error) {

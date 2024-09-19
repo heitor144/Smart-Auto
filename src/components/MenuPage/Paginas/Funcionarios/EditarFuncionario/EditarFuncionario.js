@@ -84,6 +84,7 @@ const EditarFuncionario = ({ funcionario, onClose, onUpdateFuncionario }) => {
       if (response.status >= 200 && response.status < 300) {
         onUpdateFuncionario(response.data);
         onClose();
+        window.location.reload(); // Recarrega a página
       } else {
         console.error("Erro ao atualizar funcionário", response.status);
       }

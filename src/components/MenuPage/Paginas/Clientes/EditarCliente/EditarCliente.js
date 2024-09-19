@@ -9,19 +9,19 @@ const EditarCliente = ({ cliente, onClose, onUpdateCliente }) => {
   };
 
   const formatarTelefone = (telefone) => {
-    return telefone.replace(/\D/g, "")
+    return telefone
+      .replace(/\D/g, "")
       .replace(/^(\d{2})(\d)/, "($1) $2")
       .replace(/(\d{5})(\d{1,4})$/, "$1-$2");
   };
 
   const [idCliente, setIdCliente] = useState(cliente[0]);
   const [nome, setNome] = useState(cliente[1]);
-  const [cpf, setCpf] = useState(formatarCPF(cliente[2]));
-  const [telefone, setTelefone] = useState(formatarTelefone(cliente[3]));
-  const [dataNascimento, setDataNascimento] = useState(cliente[4]);
+  const [cpf, setCpf] = useState(formatarCPF(cliente[3]));
+  const [telefone, setTelefone] = useState(formatarTelefone(cliente[2]));
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
+  // Função de formatação de CPF
   const handleCpfChange = (e) => {
     let valor = e.target.value.replace(/\D/g, "");
     if (valor.length <= 11) {
@@ -29,48 +29,49 @@ const EditarCliente = ({ cliente, onClose, onUpdateCliente }) => {
       valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
       valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
     }
+    console.log("Novo CPF: ", valor); // Log para depuração
     setCpf(valor);
   };
 
+  // Função de formatação de Telefone
   const handleTelefoneChange = (e) => {
     let valor = e.target.value.replace(/\D/g, "");
     if (valor.length <= 11) {
       valor = valor.replace(/^(\d{2})(\d)/, "($1) $2");
       valor = valor.replace(/(\d{5})(\d{1,4})$/, "$1-$2");
     }
+    console.log("Novo Telefone: ", valor); // Log para depuração
     setTelefone(valor);
   };
 
   useEffect(() => {
-    if (cliente) {
-      if (cliente[4]) {
-        const dataNasc = new Date(cliente[4]);
-        const dataFormatada = dataNasc.toISOString().split("T")[0];
-        setDataNascimento(dataFormatada);
-      }
-    }
     setLoading(false);
   }, [cliente]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const cpfSemMascara = cpf.replace(/\D/g, "");
-    const telefoneSemMascara = telefone.replace(/\D/g, "");
+    const cpfSemMascara = cpf.replace(/\D/g, ""); // CPF sem máscara
+    const telefoneSemMascara = telefone.replace(/\D/g, ""); // Telefone sem máscara
+
+    console.log("CPF sem máscara:", cpfSemMascara); // Log de CPF para depuração
+    console.log("Telefone sem máscara:", telefoneSemMascara); // Log de Telefone para depuração
 
     const updateCliente = {
       id_cliente: idCliente,
       nome,
-      cpf: cpfSemMascara,
-      telefone: telefoneSemMascara,
-      data_nascimento: dataNascimento,
+      cpf: cpfSemMascara, // CPF correto
+      telefone: telefoneSemMascara, // Telefone correto
     };
 
-    console.log("Dados a serem enviados:", updateCliente); // Adicionado para debug
+    console.log("Dados a serem enviados:", updateCliente); // Verificação final
 
     try {
-      const response = await axios.put("http://localhost:3001/api/clientes/clientes/atualizar", updateCliente);
+      const response = await axios.put(
+        "http://localhost:3001/api/clientes/clientes/atualizar",
+        updateCliente
+      );
 
-      console.log("Resposta do servidor:", response.data); // Adicionado para debug
+      console.log("Resposta do servidor:", response.data); // Verificação da resposta do servidor
 
       if (response.status >= 200 && response.status < 300) {
         onUpdateCliente(response.data);
@@ -85,7 +86,7 @@ const EditarCliente = ({ cliente, onClose, onUpdateCliente }) => {
 
   const handleClose = () => {
     onClose();
-    window.location.reload(); // Recarrega a página
+    window.location.reload();
   };
 
   return (

@@ -19,8 +19,9 @@
 }
 
 .formulario label {
-    padding: 1rem 0.4rem 0.4rem 0rem;
+    margin-top: 10px;
 }
+
 
 .formulario input {
     font-family: "Rubik", sans-serif;
@@ -48,4 +49,5 @@
     font-family: "Rubik", sans-serif;
     font-size: 1rem;
     cursor: pointer;
+    margin-top: 60px;
 }
